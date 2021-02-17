@@ -28,6 +28,7 @@ import org.junit.Test;
 import robocode.control.snapshot.IRobotSnapshot;
 
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -112,22 +113,28 @@ public abstract class RobotTestBed extends BattleAdaptor {
      *                          installation.
      */
     public RobotTestBed() {
+
+        // Check that robocode.home is defined and points to a robocode installation.
+        String robocodeHome;
+        String robotDevel;
+
+        try {
+            File robocodeHomePath = new File("../sandbox").getCanonicalFile().getAbsoluteFile();
+            File robocodeDevelPath = new File("build/classes/java/main").getCanonicalFile().getAbsoluteFile();
+            robocodeHome = robocodeHomePath.getPath();
+            robotDevel = robocodeDevelPath.getPath();
+        } catch (IOException e) {
+            e.printStackTrace(Logger.realErr);
+            throw new Error(e);
+        }
         // Set some system properties for use by the robocode engine.
         System.setProperty("EXPERIMENTAL", "true");
         System.setProperty("TESTING", "true");
+        System.setProperty("robocode.home", robocodeHome);
+        System.setProperty("WORKINGDIRECTORY", robocodeHome);
+        System.setProperty("NOSECURITY", "true");
+        System.setProperty("robocode.options.development.path", robotDevel);
 
-        // Check that robocode.home is defined and points to a robocode installation.
-        String robocodeHome = System.getProperty("robocode.home");
-
-        if (robocodeHome == null) {
-            throw new RuntimeException("System property robocode.home is not set.");
-        }
-
-        File robocodeJar = new File(new File(robocodeHome), "libs/robocode.jar");
-
-        if (!robocodeJar.exists()) {
-            throw new RuntimeException("robocode.jar not found. robocode.home: " + robocodeHome);
-        }
 
         // Now create the robocode engine.
         engine = new RobocodeEngine(new File(robocodeHome));

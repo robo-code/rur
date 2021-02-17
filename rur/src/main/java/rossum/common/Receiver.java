@@ -3,11 +3,14 @@ package rossum.common;
 import robocode.*;
 import robocode.robotinterfaces.IAdvancedEvents;
 import robocode.robotinterfaces.IBasicEvents3;
+import rossum.board.Board;
+import rossum.board.Turn;
 
 public class Receiver implements IAdvancedEvents, IBasicEvents3 {
     private Board board;
-    public Receiver(Board board){
-        this.board=board;
+
+    public Receiver(Board board) {
+        this.board = board;
     }
 
     @Override
@@ -17,21 +20,6 @@ public class Receiver implements IAdvancedEvents, IBasicEvents3 {
         board.currentTurn = new Turn(status);
         board.turns.add(board.currentTurn);
         board.time = status.getTime();
-        board.out.println("onStatus");
-    }
-
-    @Override
-    public void onSkippedTurn(SkippedTurnEvent skippedTurnEvent) {
-        board.currentTurn.isSkipped = true;
-    }
-
-    @Override
-    public void onCustomEvent(CustomEvent customEvent) {
-    }
-
-    @Override
-    public void onRoundEnded(RoundEndedEvent roundEndedEvent) {
-        board.currentTurn.isRoundEnded = true;
     }
 
     @Override
@@ -61,6 +49,30 @@ public class Receiver implements IAdvancedEvents, IBasicEvents3 {
     }
 
     @Override
+    public void onSkippedTurn(SkippedTurnEvent skippedTurnEvent) {
+        board.currentTurn.skipped = skippedTurnEvent;
+    }
+
+    @Override
+    public void onRoundEnded(RoundEndedEvent roundEndedEvent) {
+        board.currentTurn.roundEnded = roundEndedEvent;
+    }
+
+    @Override
+    public void onHitWall(HitWallEvent hitWallEvent) {
+        board.currentTurn.hitWall = hitWallEvent;
+    }
+
+    @Override
+    public void onScannedRobot(ScannedRobotEvent scannedRobotEvent) {
+        board.otherRobot = scannedRobotEvent;
+    }
+
+    @Override
+    public void onCustomEvent(CustomEvent customEvent) {
+    }
+
+    @Override
     public void onDeath(DeathEvent deathEvent) {
     }
 
@@ -72,14 +84,6 @@ public class Receiver implements IAdvancedEvents, IBasicEvents3 {
     public void onHitRobot(HitRobotEvent hitRobotEvent) {
     }
 
-    @Override
-    public void onHitWall(HitWallEvent hitWallEvent) {
-    }
-
-    @Override
-    public void onScannedRobot(ScannedRobotEvent scannedRobotEvent) {
-        board.otherRobot = scannedRobotEvent;
-    }
 
     @Override
     public void onRobotDeath(RobotDeathEvent robotDeathEvent) {

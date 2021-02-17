@@ -4,12 +4,12 @@
 package rossum;
 
 public class MariusTest extends RobotTestBed {
-    static {
-        System.setProperty("robocode.home", "c:/robocode");
-        System.setProperty("WORKINGDIRECTORY", "c:/robocode");
+    public MariusTest(){
+        isDumpingOutput=true;
     }
+
     @Override
     public String getRobotNames() {
-        return "rur.Marius,sample.crazy";
+        return "rossum.Marius,sample.Crazy";
     }
 }

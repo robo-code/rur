@@ -24,4 +24,19 @@ dependencies {
     testImplementation("net.sf.robocode:robocode.core:1.9.4.0")
     testImplementation("net.sf.robocode:robocode.host:1.9.4.0")
     testImplementation("net.sf.robocode:robocode.battle:1.9.4.0")
+    runtimeOnly("net.sf.robocode:robocode.samples:1.9.4.0")
+}
+
+tasks {
+    register("copySamples", Copy::class) {
+        from({
+            configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") && it.name.contains("robocode.samples") }.map {
+                zipTree(it)
+            }
+        })
+        into("../sandbox/robots")
+    }
+    test {
+        dependsOn("copySamples")
+    }
 }
