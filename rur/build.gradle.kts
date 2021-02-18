@@ -26,7 +26,11 @@ dependencies {
     testImplementation("junit:junit:4.13")
     testImplementation("net.sf.robocode:robocode.core:1.9.4.0")
     testImplementation("net.sf.robocode:robocode.host:1.9.4.0")
+    testImplementation("net.sf.robocode:robocode.repository:1.9.4.0")
     testImplementation("net.sf.robocode:robocode.battle:1.9.4.0")
+    testImplementation("net.sf.robocode:robocode.ui:1.9.4.0")
+    testImplementation("net.sf.robocode:robocode.main:1.9.4.0")
+    testImplementation("net.sf.robocode:robocode.sound:1.9.4.0")
     testRuntimeOnly("net.sf.robocode:robocode.samples:1.9.4.0")
 }
 
