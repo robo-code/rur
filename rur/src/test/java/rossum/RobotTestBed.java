@@ -119,7 +119,7 @@ public abstract class RobotTestBed extends BattleAdaptor {
         String robotDevel;
 
         try {
-            File robocodeHomePath = new File("../sandbox").getCanonicalFile().getAbsoluteFile();
+            File robocodeHomePath = new File("../.sandbox").getCanonicalFile().getAbsoluteFile();
             File robocodeDevelPath = new File("build/classes/java/main").getCanonicalFile().getAbsoluteFile();
             robocodeHome = robocodeHomePath.getPath();
             robotDevel = robocodeDevelPath.getPath();

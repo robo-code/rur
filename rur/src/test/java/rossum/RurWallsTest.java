@@ -3,13 +3,13 @@
  */
 package rossum;
 
-public class MariusTest extends RobotTestBed {
-    public MariusTest(){
+public class RurWallsTest extends RobotTestBed {
+    public RurWallsTest(){
         isDumpingOutput=true;
     }
 
     @Override
     public String getRobotNames() {
-        return "rossum.Marius,sample.Crazy";
+        return "rossum.RurWalls,sample.Crazy";
     }
 }
