@@ -35,8 +35,16 @@ public abstract class RobocodeTestBed<R extends IBasicRobot> extends RobotTestBe
         System.setProperty("WORKINGDIRECTORY", robocodeHome);
         System.setProperty("NOSECURITY", "true");
         System.setProperty("robocode.options.development.path", robotDevel);
+        System.setProperty("robocode.options.common.recordingFormat", "csv");
+        System.setProperty("robocode.options.common.enableReplayRecording", "true");
+        System.setProperty("robocode.options.common.enableAutoRecording", "true");
 
         super.beforeInit();
+    }
+
+    @Override
+    public boolean isEnableRecording() {
+        return true;
     }
 
     @Before
