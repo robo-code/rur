@@ -40,7 +40,7 @@ tasks {
     }
     register("copySamples", Copy::class) {
         from({
-            configurations.runtimeClasspath.get()
+            configurations.testRuntimeClasspath.get()
                 .filter { it.name.endsWith("jar") && it.name.contains("robocode.samples") }.map {
                 zipTree(it)
             }

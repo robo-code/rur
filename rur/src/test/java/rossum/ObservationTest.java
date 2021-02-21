@@ -3,6 +3,7 @@ package rossum;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
 import robocode.control.events.BattleCompletedEvent;
 import robocode.control.events.TurnEndedEvent;
 import robocode.control.snapshot.IRobotSnapshot;
@@ -14,8 +15,7 @@ import robocode.control.snapshot.IRobotSnapshot;
  * @author Philip Johnson (original)
  * @author Pavel Savara (contributor)
  */
-public class RurWallsTest extends RobotTestBed {
-
+public class ObservationTest extends RobocodeTestBed {
     /**
      * True if the robot visited this corner during the test case.
      */
@@ -37,13 +37,23 @@ public class RurWallsTest extends RobotTestBed {
     boolean visitedLowerRight = false;
 
     /**
-     * Specifies that SittingDuck and DaCruzer are to be matched up in this test case.
+     * Specifies that rossum.RurWalls is tested robot.
      *
-     * @return The comma-delimited list of robots in this match.
+     * @return robot name.
      */
     @Override
-    public String getRobotNames() {
-        return "sample.SittingDuck,rossum.RurWalls";
+    public String getRobotName() {
+        return "rossum.RurWalls";
+    }
+
+    /**
+     * Specifies that SittingDuck is the enemy.
+     *
+     * @return robot name.
+     */
+    @Override
+    public String getEnemyName() {
+        return "sample.SittingDuck";
     }
 
     /**
@@ -63,13 +73,15 @@ public class RurWallsTest extends RobotTestBed {
      */
     @Override
     public void onTurnEnded(TurnEndedEvent event) {
-        IRobotSnapshot robot = event.getTurnSnapshot().getRobots()[1];
+        IRobotSnapshot robot = event.getTurnSnapshot().getRobots()[0];
         double xPos = robot.getX();
         double yPos = robot.getY();
 
         if ((xPos < 40) && (yPos < 40)) {
             visitedUpperLeft = true;
         }
+        int height = battleFieldSpec.getHeight();
+        int width = battleFieldSpec.getWidth();
         if ((xPos < 40 && (yPos > (height - 40)))) {
             visitedLowerLeft = true;
         }
@@ -93,5 +105,10 @@ public class RurWallsTest extends RobotTestBed {
         assertTrue("Check LowerLeft", visitedLowerLeft);
         assertTrue("Check UpperRight", visitedUpperRight);
         assertTrue("Check LowerRight", visitedLowerRight);
+    }
+
+    @Test
+    public void run() {
+        super.run();
     }
 }
