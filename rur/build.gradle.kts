@@ -5,12 +5,12 @@ plugins {
     `java-library`
     `maven-publish`
 }
-java{
+java {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     mavenLocal()
 }
 
@@ -19,31 +19,29 @@ publishing {
         from(components["java"])
     }
 }
-
+val robocodeVersion = "1.9.4.1-SNAPSHOT"
 dependencies {
-    implementation("net.sf.robocode:robocode.api:1.9.4.0")
-
+    implementation("net.sf.robocode:robocode.api:$robocodeVersion")
+    testImplementation("net.sf.robocode:robocode.core:$robocodeVersion")
+    testImplementation("net.sf.robocode:robocode.host:$robocodeVersion")
+    testImplementation("net.sf.robocode:robocode.repository:$robocodeVersion")
+    testImplementation("net.sf.robocode:robocode.battle:$robocodeVersion")
+    testImplementation("net.sf.robocode:robocode.ui:$robocodeVersion")
+    testImplementation("net.sf.robocode:robocode.sound:$robocodeVersion")
+    testRuntimeOnly("net.sf.robocode:robocode.samples:$robocodeVersion")
     testImplementation("junit:junit:4.13")
-    testImplementation("net.sf.robocode:robocode.core:1.9.4.0")
-    testImplementation("net.sf.robocode:robocode.host:1.9.4.0")
-    testImplementation("net.sf.robocode:robocode.repository:1.9.4.0")
-    testImplementation("net.sf.robocode:robocode.battle:1.9.4.0")
-    testImplementation("net.sf.robocode:robocode.ui:1.9.4.0")
-    testImplementation("net.sf.robocode:robocode.main:1.9.4.0")
-    testImplementation("net.sf.robocode:robocode.sound:1.9.4.0")
-    testRuntimeOnly("net.sf.robocode:robocode.samples:1.9.4.0")
 }
 
 tasks {
-    processResources{
+    processResources {
         expand("version" to project.version)
     }
     register("copySamples", Copy::class) {
         from({
             configurations.testRuntimeClasspath.get()
-                .filter { it.name.endsWith("jar") && it.name.contains("robocode.samples") }.map {
-                zipTree(it)
-            }
+                    .filter { it.name.endsWith("jar") && it.name.contains("robocode.samples") }.map {
+                        zipTree(it)
+                    }
         })
         into("../.sandbox/robots")
     }
