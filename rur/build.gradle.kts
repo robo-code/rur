@@ -19,7 +19,7 @@ publishing {
         from(components["java"])
     }
 }
-val robocodeVersion = "1.9.4.1-SNAPSHOT"
+val robocodeVersion = "1.9.4.1"
 dependencies {
     implementation("net.sf.robocode:robocode.api:$robocodeVersion")
     testImplementation("net.sf.robocode:robocode.core:$robocodeVersion")
