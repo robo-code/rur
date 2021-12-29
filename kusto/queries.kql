@@ -1,0 +1,46 @@
+waves
+| count 
+
+
+//bullet count by enemy distance when fired
+waves
+| summarize waveCount=count() by outcome, bin(firedDistance, 1)
+| render linechart with (ycolumns = waveCount, xcolumn =firedDistance)
+
+// bullet count by owner energy and outcome
+waves
+| summarize waveCount=count() by outcome, bin(firedOwnerEnergy, 2)
+| render linechart with (ycolumns = waveCount, xcolumn =firedOwnerEnergy)
+
+
+// avg bullet power by owner energy
+waves
+| summarize avgPower=avg(power) by outcome, bin(firedOwnerEnergy, 2)
+| render linechart with (ycolumns = avgPower, xcolumn =firedOwnerEnergy)
+
+// avg bullet power by turn
+waves
+| summarize avgPower=avg(power) by outcome, bin(firedTime, 10)
+| render linechart with (ycolumns = avgPower, xcolumn =firedTime)
+
+
+// avg energy by turn
+waves
+| summarize avgEnergy=avg(firedOwnerEnergy) by outcome, bin(firedTime, 10)
+| render linechart with (ycolumns = avgEnergy, xcolumn =firedTime)
+
+// hit count by passedRelativeAngle
+waves
+| summarize count=count() by outcome, bin(passedRelativeAngle, 0.005)
+| render linechart with (ycolumns = count, xcolumn =passedRelativeAngle)
+
+
+// max escape angle by fire distance
+waves
+| summarize maxAngle=max(abs(passedRelativeAngle)) by bin(firedDistance, 1)
+| render linechart with (ycolumns = maxAngle, xcolumn =firedDistance)
+
+
+waves
+| summarize maxAngle=max(abs(passedRelativeAngle)) by bin(firedVictimX, 10),bin(firedVictimY, 10)
+| render linechart with (ycolumns = maxAngle, xcolumn =firedVictimX)

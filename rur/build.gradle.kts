@@ -19,7 +19,7 @@ publishing {
         from(components["java"])
     }
 }
-val robocodeVersion = "1.9.4.1"
+val robocodeVersion = "1.9.4.3"
 dependencies {
     implementation("net.sf.robocode:robocode.api:$robocodeVersion")
     testImplementation("net.sf.robocode:robocode.core:$robocodeVersion")
@@ -27,7 +27,7 @@ dependencies {
     testImplementation("net.sf.robocode:robocode.repository:$robocodeVersion")
     testImplementation("net.sf.robocode:robocode.battle:$robocodeVersion")
     testImplementation("net.sf.robocode:robocode.ui:$robocodeVersion")
-    testImplementation("net.sf.robocode:robocode.sound:$robocodeVersion")
+    testImplementation(project(":robocode.plugin.kusto"))
     testRuntimeOnly("net.sf.robocode:robocode.samples:$robocodeVersion")
     testImplementation("junit:junit:4.13")
 }

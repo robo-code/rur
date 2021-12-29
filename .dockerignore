@@ -1,0 +1,8 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!/build
+!/robocode.plugin.kusto/build
+!/robocode.plugin.kusto/robocode.properties
+!/robocode.plugin.kusto/roborumble.sh

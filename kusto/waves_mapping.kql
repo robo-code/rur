@@ -1,0 +1,1 @@
+.create table waves ingestion csv mapping "waves_mapping" '<waves_mapping.json>'

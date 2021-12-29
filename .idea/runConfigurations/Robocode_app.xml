@@ -2,7 +2,8 @@
   <configuration default="false" name="Robocode app" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="robocode.Robocode" />
     <module name="rur.rur.test" />
-    <option name="VM_PARAMETERS" value="-Drobocode.options.development.path=../rur/build/classes/java/main" />
+    <option name="PROGRAM_PARAMETERS" value="-battle ../rur/src/test/resources/marius.battle" />
+    <option name="VM_PARAMETERS" value="-Drobocode.options.development.path=../rur/build/classes/java/main -DPAINTING=true" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.sandbox" />
     <method v="2">
       <option name="Make" enabled="true" />
